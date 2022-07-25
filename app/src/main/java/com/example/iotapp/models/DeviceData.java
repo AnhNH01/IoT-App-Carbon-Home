@@ -9,22 +9,23 @@ public class DeviceData {
     private String deviceId;
     private double value;
     private String time;
-    private String name;
+    @SerializedName("attributeId")
+    private DataAttribute dataAttribute;
 
-    public DeviceData(String id, String deviceId, double value, String time, String name) {
+    public DeviceData(String id, String deviceId, double value, String time, DataAttribute dataAttribute) {
         this.id = id;
         this.deviceId = deviceId;
         this.value = value;
         this.time = time;
-        this.name = name;
+        this.dataAttribute = dataAttribute;
     }
 
-    public String getName() {
-        return name;
+    public DataAttribute getDataAttribute() {
+        return dataAttribute;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDataAttribute(DataAttribute dataAttribute) {
+        this.dataAttribute = dataAttribute;
     }
 
     public String getId() {

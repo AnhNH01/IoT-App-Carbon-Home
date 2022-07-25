@@ -51,6 +51,7 @@ public class LightActivity extends AppCompatActivity {
 
         String clientId = MqttClient.generateClientId();
         light_client = new MqttAndroidClient(this.getApplicationContext(), "tcp://"+MenuActivity.getBrokerHost()+":1883", clientId);
+        //light_client = new MqttAndroidClient(this.getApplicationContext(), "tcp://192.168.202.139:1883", clientId);
         connectToBroker();
         getLightStatus();
 
@@ -76,6 +77,7 @@ public class LightActivity extends AppCompatActivity {
             options.setUserName(MenuActivity.getHomeId());
             options.setPassword(MenuActivity.getBrokerPassword().toCharArray());
             IMqttToken token = light_client.connect(options);
+            //IMqttToken token = light_client.connect();
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
@@ -134,7 +136,7 @@ public class LightActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(msg);
                     if (lightId.equals(jsonObject.getString("deviceId"))) {
-                        status = jsonObject.getString("status");
+                        status = jsonObject.getString("value");
                         Log.d(TAG, "messageArrived: " + status);
                         if(status.equals("ON")) {
                             textViewLightStatus.setText(status);

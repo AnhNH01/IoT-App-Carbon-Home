@@ -76,7 +76,7 @@ public class SensorActivity extends AppCompatActivity {
                 entries.add(new Entry(i + 1, (float) deviceDatas.get(i).getValue()));
             }
 
-            LineDataSet dataSet = new LineDataSet(entries, deviceDatas.get(0).getName().toUpperCase(Locale.ROOT));
+            LineDataSet dataSet = new LineDataSet(entries, deviceDatas.get(0).getDataAttribute().getName().toUpperCase(Locale.ROOT));
             dataSet.setColor(R.color.darkgreen);
             LineData lineData = new LineData(dataSet);
             lineChart.setData(lineData);
@@ -103,7 +103,7 @@ public class SensorActivity extends AppCompatActivity {
                 entries.add(new Entry(i + 1, (float) deviceDatas.get(i).getValue()));
             }
 
-            LineDataSet dataSet = new LineDataSet(entries, deviceDatas.get(0).getName().toUpperCase(Locale.ROOT));
+            LineDataSet dataSet = new LineDataSet(entries, deviceDatas.get(0).getDataAttribute().getName().toUpperCase(Locale.ROOT));
             dataSet.setColor(R.color.darkgreen);
             LineData lineData = new LineData(dataSet);
             lineChart.setData(lineData);

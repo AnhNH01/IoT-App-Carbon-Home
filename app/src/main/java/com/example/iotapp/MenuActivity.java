@@ -96,6 +96,7 @@ public class MenuActivity extends AppCompatActivity implements RoomAdapter.OnRoo
         // mqtt client
         String clientId = MqttClient.generateClientId();
         alert_client = new MqttAndroidClient(this.getApplicationContext(), "tcp://" + MenuActivity.getBrokerHost() + ":1883", clientId);
+        //alert_client = new MqttAndroidClient(this.getApplicationContext(), "tcp://192.168.202.139:1883", clientId);
         recyclerViewRoom = findViewById(R.id.rcv_room);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerViewRoom.setLayoutManager(linearLayoutManager);
@@ -166,6 +167,7 @@ public class MenuActivity extends AppCompatActivity implements RoomAdapter.OnRoo
             options.setUserName(homeId);
             options.setPassword(brokerPassword.toCharArray());
             IMqttToken token = alert_client.connect(options);
+            //IMqttToken token = alert_client.connect();
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
@@ -224,7 +226,7 @@ public class MenuActivity extends AppCompatActivity implements RoomAdapter.OnRoo
                     JSONObject jsonObject = new JSONObject(msg);
                     if (homeId.equals(jsonObject.getString("homeId"))) {
                         if (jsonObject.getString("name").equals("temperature")) {
-                            if (jsonObject.getDouble("value") >= 35) {
+                            if (jsonObject.getDouble("value") >= 40) {
                                 Toast.makeText(getApplicationContext(), "High Temperature Alert", Toast.LENGTH_LONG).show();
                             }
                         }

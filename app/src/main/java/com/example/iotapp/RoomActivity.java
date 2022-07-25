@@ -81,7 +81,7 @@ public class RoomActivity extends AppCompatActivity implements DeviceAdapter.OnD
         }
         String clientId = MqttClient.generateClientId();
         client = new MqttAndroidClient(this.getApplicationContext(), "tcp://" + MenuActivity.getBrokerHost() + ":1883", clientId);
-
+//        client = new MqttAndroidClient(this.getApplicationContext(), "tcp://192.168.202.139:1883", clientId);
         mDeviceList = new ArrayList<>();
         mLightList = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -146,6 +146,7 @@ public class RoomActivity extends AppCompatActivity implements DeviceAdapter.OnD
             options.setUserName(MenuActivity.getHomeId());
             options.setPassword(MenuActivity.getBrokerPassword().toCharArray());
             IMqttToken token = client.connect(options);
+            //IMqttToken token = client.connect();
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
@@ -205,10 +206,10 @@ public class RoomActivity extends AppCompatActivity implements DeviceAdapter.OnD
                     if (MenuActivity.getHomeId().equals(jsonObject.getString("homeId"))) {
                         if (roomId.equals(jsonObject.getString("roomId"))) {
                             if (jsonObject.getString("name").equals("temperature"))
-                                textViewTemperatureValue.setText(String.valueOf(jsonObject.getDouble("value")));
+                                textViewTemperatureValue.setText(String.valueOf(jsonObject.getDouble("value")).substring(0,4));
 
                             if (jsonObject.getString("name").equals("humidity"))
-                                textViewHumidityValue.setText(String.valueOf(jsonObject.getDouble("value")));
+                                textViewHumidityValue.setText(String.valueOf(jsonObject.getDouble("value")).substring(0,4));
                         }
                     }
                 } catch (JSONException e) {
